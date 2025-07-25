@@ -1,0 +1,30 @@
+{
+  "name": "informdata-forensic-analysis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render src/index.tsx",
+    "render-all": "npm run render-field-naming && npm run render-structure && npm run render-verification && npm run render-impact",
+    "render-field-naming": "remotion render src/index.tsx FieldNaming out/FieldNaming.mp4",
+    "render-structure": "remotion render src/index.tsx ProductStructure out/ProductStructure.mp4",
+    "render-verification": "remotion render src/index.tsx VerificationPattern out/VerificationPattern.mp4",
+    "render-impact": "remotion render src/index.tsx BusinessImpact out/BusinessImpact.mp4",
+    "serve": "npx http-server -p 8080"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Comprehensive forensic analysis of InformData API integration issues with visual demonstrations",
+  "dependencies": {
+    "remotion": "^4.0.0",
+    "@remotion/cli": "^4.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
