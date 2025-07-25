@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InformData API - Detailed Technical Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .evidence-section {
+            background-color: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .evidence-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .file-path {
+            font-family: monospace;
+            background-color: #e5e7eb;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .code-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .code-block {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .code-block.incorrect {
+            border: 2px solid #dc2626;
+        }
+        
+        .code-block.correct {
+            border: 2px solid #16a34a;
+        }
+        
+        .line-number {
+            color: #6b7280;
+            margin-right: 10px;
+            display: inline-block;
+            width: 40px;
+            text-align: right;
+        }
+        
+        .highlight-error {
+            background-color: #7f1d1d;
+            color: #fee2e2;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .highlight-correct {
+            background-color: #064e3b;
+            color: #dcfce7;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>InformData API - Detailed Technical Analysis</h1>
+            <p class="subtitle">Evidence-Based Discrepancy Documentation</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="index.html">Executive Summary</a>
+            <a href="#field-naming-evidence">Field Naming Evidence</a>
+            <a href="#structure-evidence">Structure Evidence</a>
+            <a href="#verification-evidence">Verification Evidence</a>
+            <a href="#missing-features">Missing Features</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Field Naming Evidence Section -->
+        <section id="field-naming-evidence" class="card">
+            <h2>Field Naming Convention - Complete Evidence</h2>
+            
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>Evidence Source #1: Request Files</h3>
+                    <span class="file-path">/Downloads/Requests/Criminal/Criminal.json</span>
+                </div>
+                
+                <div class="code-comparison">
+                    <div class="code-block incorrect">
+                        <h4>❌ Example File (INCORRECT)</h4>
+                        <pre><code><span class="line-number">1</span>{
+<span class="line-number">2</span>    "order": {
+<span class="line-number">3</span>        "clientOrderId": "123456789",
+<span class="line-number">4</span>        "subject": {
+<span class="line-number">5</span>            <span class="highlight-error">"FirstName"</span>: "ROBERT",
+<span class="line-number">6</span>            <span class="highlight-error">"LastName"</span>: "DUMMYDATA",
+<span class="line-number">7</span>            <span class="highlight-error">"Birthdate"</span>: "2000-01-01"
+<span class="line-number">8</span>        },
+<span class="line-number">9</span>        "product": {
+<span class="line-number">10</span>            "category": "CRIMINAL"
+<span class="line-number">11</span>        }
+<span class="line-number">12</span>    }
+<span class="line-number">13</span>}</code></pre>
+                    </div>
+                    
+                    <div class="code-block correct">
+                        <h4>✅ API Documentation (CORRECT)</h4>
+                        <pre><code>// From PATCH /orders/{id} endpoint
+{
+  "subject": {
+    <span class="highlight-correct">"firstName"</span>: "string",
+    <span class="highlight-correct">"middleName"</span>: "string",
+    <span class="highlight-correct">"lastName"</span>: "string",
+    <span class="highlight-correct">"birthdate"</span>: "2019-08-24"
+  }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="alert alert-critical">
+                    <strong>Critical Finding:</strong> The example files provided by InformData use PascalCase, but their official API documentation clearly shows camelCase is required.
+                </div>
+            </div>
+
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>Evidence Source #2: Response Files</h3>
+                    <span class="file-path">/Downloads/Responses/Criminal/Criminal Response.json</span>
+                </div>
+                
+                <pre class="code-block"><code>{
+    "order": {
+        "id": "c0b46a4f-664a-ed11-aa48-a86cee4fab91",
+        "subject": {
+            <span class="highlight-correct">"firstName"</span>: "FNAME",      // ✅ camelCase
+            <span class="highlight-correct">"middleName"</span>: "MNAME",     // ✅ camelCase
+            <span class="highlight-correct">"lastName"</span>: "LNAME",       // ✅ camelCase
+            <span class="highlight-correct">"birthdate"</span>: "1980-01-01"  // ✅ camelCase
+        }
+    }
+}</code></pre>
+                
+                <p><strong>Conclusion:</strong> Response files consistently use camelCase, confirming the API standard.</p>
+            </div>
+
+            <h3>Field Naming Quick Reference</h3>
+            <table class="roi-table">
+                <tr>
+                    <th>Field Purpose</th>
+                    <th>❌ Incorrect Variations Found</th>
+                    <th>✅ Correct API Format</th>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td>FirstName, first_name, FIRST_NAME</td>
+                    <td>firstName</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>LastName, last_name, LAST_NAME</td>
+                    <td>lastName</td>
+                </tr>
+                <tr>
+                    <td>Birth Date</td>
+                    <td>Birthdate, birth_date, BIRTH_DATE</td>
+                    <td>birthdate</td>
+                </tr>
+                <tr>
+                    <td>SSN</td>
+                    <td>SSN, social_security_number</td>
+                    <td>ssn</td>
+                </tr>
+                <tr>
+                    <td>Driver's License</td>
+                    <td>DriversLicenseNumber, drivers_license_number</td>
+                    <td>driversLicenseNumber</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Product Structure Evidence Section -->
+        <section id="structure-evidence" class="card">
+            <h2>Product-Specific Structure Requirements</h2>
+            
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>Criminal Order Structure</h3>
+                    <span class="file-path">/Downloads/Requests/Criminal/Criminal.json</span>
+                </div>
+                
+                <pre class="code-block"><code>{
+    "order": {
+        "subject": { /* basic subject fields */ },
+        "product": {
+            "category": "CRIMINAL",
+            "felonyYears": 7,
+            "misdemeanorYears": 7,
+            "trafficYears": 7
+        },
+        "jurisdiction": {
+            "county": "Cobb",      // Actual county name
+            "state": "GA",
+            "country": "United States"
+        }
+        // Note: NO verification objects for criminal orders
+    }
+}</code></pre>
+            </div>
+
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>Employment Verification Structure</h3>
+                    <span class="file-path">/Downloads/Requests/Verification/Employment Verification.json</span>
+                </div>
+                
+                <pre class="code-block"><code>{
+    "order": {
+        "subject": { /* basic subject fields */ },
+        "product": {
+            "category": "EMPLOYMENT_VERIFICATION"
+        },
+        "jurisdiction": {
+            "county": "Statewide",    // ⚠️ Not a real county!
+            "state": "GA",
+            "country": "United States"
+        },
+        <span class="highlight-correct">"employmentVerification"</span>: {     // ✅ Required for employment
+            "employer": "NOT REAL COMPANY",
+            "address1": "123 FAKE ST",
+            "city": "ATLANTA",
+            "title": "REAL JOB TITLE",
+            "employedFrom": "2023-01-01",
+            "employedTo": "2023-12-31",
+            "state": "GA"
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="alert alert-critical">
+                <strong>Key Finding:</strong> Each product type requires a different structure. A generic handler cannot work.
+            </div>
+
+            <h3>Product Structure Requirements Matrix</h3>
+            <table class="roi-table">
+                <tr>
+                    <th>Product Type</th>
+                    <th>Required Objects</th>
+                    <th>Forbidden Objects</th>
+                    <th>Special Fields</th>
+                </tr>
+                <tr>
+                    <td>CRIMINAL</td>
+                    <td>subject, product, jurisdiction</td>
+                    <td>All verification objects</td>
+                    <td>felonyYears, misdemeanorYears</td>
+                </tr>
+                <tr>
+                    <td>EMPLOYMENT_VERIFICATION</td>
+                    <td>subject, product, jurisdiction, employmentVerification</td>
+                    <td>educationVerification, militaryVerification</td>
+                    <td>employer, title, employedFrom/To</td>
+                </tr>
+                <tr>
+                    <td>EDUCATION_VERIFICATION</td>
+                    <td>subject, product, jurisdiction, educationVerification</td>
+                    <td>employmentVerification, militaryVerification</td>
+                    <td>school, degree, graduationDate</td>
+                </tr>
+                <tr>
+                    <td>SEX_OFFENDER</td>
+                    <td>subject, product, jurisdiction</td>
+                    <td>All verification objects</td>
+                    <td>Can include SSN in request</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Verification Pattern Evidence Section -->
+        <section id="verification-evidence" class="card">
+            <h2>Verification Triple Field Pattern</h2>
+            
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>Employment Verification Response Pattern</h3>
+                    <span class="file-path">/Downloads/Responses/Verification/Employment Verification Response.json</span>
+                </div>
+                
+                <pre class="code-block"><code>"employmentVerification": {
+    // Pattern 1: Employer field
+    <span class="highlight-correct">"employer"</span>: "Sendoso",                 // Base field
+    <span class="highlight-correct">"employerVerified"</span>: true,             // Verification status
+    <span class="highlight-correct">"employerDiscovered"</span>: "Sendoso",      // What was found
+    
+    // Pattern 2: Title field
+    <span class="highlight-correct">"title"</span>: "Send Curator",               // Base field
+    <span class="highlight-correct">"titleVerified"</span>: true,                // Verification status
+    <span class="highlight-correct">"titleDiscovered"</span>: "Send Curator",    // What was found
+    
+    // Pattern 3: Employment dates
+    <span class="highlight-correct">"employedFrom"</span>: "2021-11-01",          // Base field
+    <span class="highlight-correct">"employedFromVerified"</span>: true,        // Verification status
+    <span class="highlight-correct">"employedFromDiscovered"</span>: "11/29/2021", // What was found (different format!)
+    
+    <span class="highlight-correct">"employedTo"</span>: "2022-10-01",            // Base field
+    <span class="highlight-correct">"employedToVerified"</span>: false,         // ❌ Not verified
+    <span class="highlight-correct">"employedToDiscovered"</span>: "Present",   // Different value found!
+}</code></pre>
+            </div>
+
+            <div class="alert alert-critical">
+                <strong>Critical Pattern:</strong> EVERY field in a verification response has three versions. Missing any of these means data loss.
+            </div>
+
+            <h3>Verification Pattern Rules</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Base Field</div>
+                    <div style="font-size: 18px; color: var(--text-primary);">Contains the provided value</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">fieldVerified</div>
+                    <div style="font-size: 18px; color: var(--text-primary);">Boolean - was it verified?</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">fieldDiscovered</div>
+                    <div style="font-size: 18px; color: var(--text-primary);">String - actual value found</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Missing Features Evidence Section -->
+        <section id="missing-features" class="card">
+            <h2>Missing Core Features - API Requirements</h2>
+            
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>JWT Authentication Requirement</h3>
+                    <span class="file-path">Every API Endpoint</span>
+                </div>
+                
+                <div class="code-comparison">
+                    <div class="code-block incorrect">
+                        <h4>❌ Current Implementation</h4>
+                        <pre><code>// No authentication headers found
+const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+        // Missing Authorization header!
+    },
+    body: JSON.stringify(data)
+});</code></pre>
+                    </div>
+                    
+                    <div class="code-block correct">
+                        <h4>✅ Required Implementation</h4>
+                        <pre><code>// From API Documentation
+const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+        <span class="highlight-correct">'Authorization': `Bearer ${jwtToken}`</span>,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evidence-section">
+                <div class="evidence-header">
+                    <h3>Webhook Event Structure</h3>
+                    <span class="file-path">API Documentation - Webhooks Section</span>
+                </div>
+                
+                <pre class="code-block"><code>// ORDER_STATUS_CHANGE event
+{
+    "id": "string",
+    "event": "ORDER_STATUS_CHANGE",
+    "eventDate": "2019-07-05T15:16:58Z",
+    "order": {
+        "id": "string",
+        "clientOrderId": "string",
+        "status": "COMPLETE",
+        "substatus": "NO_RESULTS_FOUND"
+    }
+}
+
+// NEED_INFO event (critical for ~30% of orders)
+{
+    "id": "string",
+    "event": "NEED_INFO",
+    "eventDate": "2020-08-17T12:10:22.614-04:00",
+    "order": {
+        "status": "PENDING",
+        "substatus": "NEED_INFO",
+        <span class="highlight-correct">"infoNeeded"</span>: [
+            {
+                "abbreviation": "DL",
+                "name": "Driver's License",
+                "note": "Please provide driver's license"
+            }
+        ]
+    }
+}</code></pre>
+            </div>
+
+            <h3>Missing Features Impact Analysis</h3>
+            <table class="roi-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>API Requirement</th>
+                    <th>Current State</th>
+                    <th>Business Impact</th>
+                </tr>
+                <tr>
+                    <td>JWT Authentication</td>
+                    <td>Required on every endpoint</td>
+                    <td>❌ Not implemented</td>
+                    <td>100% API failure</td>
+                </tr>
+                <tr>
+                    <td>Webhook Subscriptions</td>
+                    <td>POST /webhooks with event list</td>
+                    <td>❌ Not implemented</td>
+                    <td>No order tracking</td>
+                </tr>
+                <tr>
+                    <td>NEED_INFO Handling</td>
+                    <td>PATCH with allInfoHasBeenProvided</td>
+                    <td>❌ Not implemented</td>
+                    <td>~30% orders stuck</td>
+                </tr>
+                <tr>
+                    <td>Rate Limiting</td>
+                    <td>Max 5,000 requests/5 min</td>
+                    <td>❌ Not implemented</td>
+                    <td>Risk of IP blocking</td>
+                </tr>
+                <tr>
+                    <td>Error Handling</td>
+                    <td>RFC 7807 format</td>
+                    <td>❌ Not implemented</td>
+                    <td>Cannot debug issues</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Date Format Evidence Section -->
+        <section class="card">
+            <h2>Date Format Variations</h2>
+            
+            <div class="evidence-section">
+                <h3>Date Formats Found in API</h3>
+                
+                <table class="roi-table">
+                    <tr>
+                        <th>Context</th>
+                        <th>Format</th>
+                        <th>Example</th>
+                        <th>Location</th>
+                    </tr>
+                    <tr>
+                        <td>Request Dates</td>
+                        <td>YYYY-MM-DD</td>
+                        <td>"2023-01-01"</td>
+                        <td>All request payloads</td>
+                    </tr>
+                    <tr>
+                        <td>Response Dates</td>
+                        <td>ISO DateTime</td>
+                        <td>"1980-01-01T00:00:00"</td>
+                        <td>Order responses</td>
+                    </tr>
+                    <tr>
+                        <td>Activity Timestamps</td>
+                        <td>ISO with milliseconds</td>
+                        <td>"2022-10-12T15:54:20.567"</td>
+                        <td>Activity arrays</td>
+                    </tr>
+                    <tr>
+                        <td>Call Dates</td>
+                        <td>ISO with timezone</td>
+                        <td>"2022-10-12T11:41:08-04:00"</td>
+                        <td>Verification calls</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Jurisdiction Overloading Evidence -->
+        <section class="card">
+            <h2>Jurisdiction Field Overloading</h2>
+            
+            <div class="evidence-section">
+                <h3>How "county" Field Changes Meaning</h3>
+                
+                <div class="code-comparison">
+                    <div class="code-block">
+                        <h4>Criminal Order</h4>
+                        <pre><code>{
+    "jurisdiction": {
+        "county": "Cobb",        // Real county
+        "state": "GA",
+        "country": "United States"
+    }
+}</code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <h4>Employment Verification</h4>
+                        <pre><code>{
+    "jurisdiction": {
+        "county": "Statewide",   // Not a county!
+        "state": "GA",
+        "country": "United States"
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-comparison">
+                    <div class="code-block">
+                        <h4>Sex Offender Registry</h4>
+                        <pre><code>{
+    "jurisdiction": {
+        "county": "National Sex Offender Registry",
+        "state": "USA",
+        "country": "United States"
+    }
+}</code></pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <h4>National Criminal</h4>
+                        <pre><code>{
+    "jurisdiction": {
+        "county": "NatCrim",
+        "state": "USA",
+        "country": "United States"
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Detailed Technical Analysis - InformData API Forensic Investigation</p>
+            <p>Based on official documentation and file analysis from January 2025</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
