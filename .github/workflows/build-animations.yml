@@ -1,0 +1,37 @@
+name: Build and Deploy Animations
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build Remotion animations
+      run: |
+        mkdir -p public/animations
+        npx remotion render src/index.tsx RepositoryTransformation public/animations/repository-transformation.mp4 --codec h264
+        npx remotion render src/index.tsx APIFlowComparison public/animations/api-flow-comparison.mp4 --codec h264
+        npx remotion render src/index.tsx FieldNaming public/animations/field-naming.mp4 --codec h264
+        npx remotion render src/index.tsx ProductStructure public/animations/product-structure.mp4 --codec h264
+        npx remotion render src/index.tsx VerificationPattern public/animations/verification-pattern.mp4 --codec h264
+        npx remotion render src/index.tsx BusinessImpact public/animations/business-impact.mp4 --codec h264
+        
+    - name: Upload animations artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: animations
+        path: public/animations/

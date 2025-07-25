@@ -6,6 +6,10 @@ import {
     VerificationPatternVisualization,
     BusinessImpactVisualization 
 } from './FieldNamingVisualization';
+import {
+    RepositoryTransformationVisualization,
+    APIFlowComparisonVisualization
+} from './RepositoryTransformation';
 
 export const RemotionVideo: React.FC = () => {
     return (
@@ -38,6 +42,22 @@ export const RemotionVideo: React.FC = () => {
                 id="BusinessImpact"
                 component={BusinessImpactVisualization}
                 durationInFrames={180}
+                fps={30}
+                width={1280}
+                height={720}
+            />
+            <Composition
+                id="RepositoryTransformation"
+                component={RepositoryTransformationVisualization}
+                durationInFrames={210}
+                fps={30}
+                width={1280}
+                height={720}
+            />
+            <Composition
+                id="APIFlowComparison"
+                component={APIFlowComparisonVisualization}
+                durationInFrames={200}
                 fps={30}
                 width={1280}
                 height={720}
