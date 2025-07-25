@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRD Implementation Flow - Repository Transformation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .flow-container {
+            display: flex;
+            gap: 40px;
+            margin: 40px 0;
+            align-items: flex-start;
+        }
+        
+        .flow-section {
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+        }
+        
+        .flow-section h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .current-state {
+            border: 2px solid #dc3545;
+            background: #fff5f5;
+        }
+        
+        .future-state {
+            border: 2px solid #28a745;
+            background: #f5fff5;
+        }
+        
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+        }
+        
+        .arrow {
+            width: 50px;
+            height: 50px;
+            background: #007bff;
+            clip-path: polygon(0 25%, 50% 25%, 50% 0, 100% 50%, 50% 100%, 50% 75%, 0 75%);
+        }
+        
+        .repository-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .repository-card h4 {
+            margin-top: 0;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-list {
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+        }
+        
+        .file-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .file-correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .prd-card {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .prd-card h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        
+        .transformation-steps {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .step-number {
+            background: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .impact-analysis {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .code-change {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        
+        .diff-add {
+            color: #4caf50;
+        }
+        
+        .diff-remove {
+            color: #f44336;
+        }
+        
+        .interactive-toggle {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        
+        .interactive-toggle:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <h1>InformData API Forensic Analysis</h1>
+            <ul>
+                <li><a href="index.html">Overview</a></li>
+                <li><a href="verified-analysis.html">Verified Evidence</a></li>
+                <li><a href="detailed-analysis.html">Detailed Analysis</a></li>
+                <li><a href="prd-implementation-flow.html" class="active">PRD Implementation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <h1>PRD Implementation Flow</h1>
+            <p class="subtitle">Visual representation of how Product Requirements Documents will transform each repository</p>
+        </section>
+
+        <div class="flow-container">
+            <div class="flow-section current-state">
+                <h3>❌ Current State: Inconsistent</h3>
+                <ul>
+                    <li>Mixed field naming (camelCase/PascalCase)</li>
+                    <li>No JWT authentication</li>
+                    <li>Missing product-specific validation</li>
+                    <li>60% of files incorrect</li>
+                </ul>
+            </div>
+            
+            <div class="arrow-container">
+                <div class="arrow"></div>
+            </div>
+            
+            <div class="flow-section future-state">
+                <h3>✅ Future State: Consistent</h3>
+                <ul>
+                    <li>100% PascalCase compliance</li>
+                    <li>Proper JWT token flow</li>
+                    <li>Product-specific structures</li>
+                    <li>All repositories aligned</li>
+                </ul>
+            </div>
+        </div>
+
+        <section id="repository-transformations">
+            <h2>Repository-Specific Transformations</h2>
+
+            <div class="repository-card">
+                <h4>📁 vuplicity-api (Main API Server)</h4>
+                
+                <div class="prd-card">
+                    <h4>PRD: InformData Integration Standardization</h4>
+                    <p><strong>Objective:</strong> Standardize all InformData API integrations to use correct field naming and authentication</p>
+                    <p><strong>Scope:</strong> Update adapter, service, and test files</p>
+                </div>
+
+                <div class="transformation-steps">
+                    <h5>Implementation Steps</h5>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Fix Field Naming in Adapter</strong>
+                            <div class="code-change">
+<pre><span class="diff-remove">- firstName?: string;  // NOT FirstName!</span>
+<span class="diff-remove">- lastName?: string;   // NOT LastName!</span>
+<span class="diff-remove">- birthdate?: string;  // NOT Birthdate!</span>
+<span class="diff-add">+ FirstName?: string;  // Correct PascalCase</span>
+<span class="diff-add">+ LastName?: string;   // Correct PascalCase</span>
+<span class="diff-add">+ Birthdate?: string;  // Correct PascalCase</span></pre>
+                            </div>
+                            <p><strong>File:</strong> src/adapters/informdata-adapter-CORRECT.ts</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Implement JWT Authentication</strong>
+                            <div class="code-change">
+<pre><span class="diff-add">+ async getJwtToken() {
++   const response = await axios.get(
++     `${this.baseURL}/authenticate`,
++     { auth: { username: this.apiKey, password: '' } }
++   );
++   return response.data.token;
++ }</span></pre>
+                            </div>
+                            <p><strong>File:</strong> src/services/inform-data-service.ts</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>Update All Test Files</strong>
+                            <p>Correct misconceptions in test files about API requirements</p>
+                            <p><strong>Files:</strong> tests/integration/*.js</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-list">
+                    <h5>Files to Update</h5>
+                    <div class="file-item file-incorrect">
+                        <span>src/adapters/informdata-adapter-CORRECT.ts</span>
+                        <span class="status-badge">Needs Fix</span>
+                    </div>
+                    <div class="file-item file-incorrect">
+                        <span>src/services/inform-data-service.ts</span>
+                        <span class="status-badge">Needs Fix</span>
+                    </div>
+                    <div class="file-item file-incorrect">
+                        <span>tests/integration/test-informdata-api-compliance.js</span>
+                        <span class="status-badge">Needs Fix</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repository-card">
+                <h4>📁 vuplicity-hr-portal</h4>
+                
+                <div class="prd-card">
+                    <h4>PRD: Maintain Current Implementation</h4>
+                    <p><strong>Status:</strong> ✅ Already Correct (Fixed July 13, 2025)</p>
+                    <p><strong>Action:</strong> No changes needed, use as reference</p>
+                </div>
+
+                <div class="file-list">
+                    <h5>Current Status</h5>
+                    <div class="file-item file-correct">
+                        <span>src/services/informdata-api.ts</span>
+                        <span class="status-badge">Correct</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="repository-card">
+                <h4>📁 vuplicity-employee-portal</h4>
+                
+                <div class="prd-card">
+                    <h4>PRD: Employee Portal InformData Integration</h4>
+                    <p><strong>Objective:</strong> Implement InformData integration matching HR Portal pattern</p>
+                    <p><strong>Reference:</strong> Copy patterns from HR Portal implementation</p>
+                </div>
+
+                <div class="transformation-steps">
+                    <h5>Implementation Steps</h5>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>Create InformData Service</strong>
+                            <p>Copy structure from HR Portal's informdata-api.ts</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>Use Correct Field Names</strong>
+                            <p>Ensure PascalCase from the start</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact-visualization">
+            <h2>System-Wide Impact</h2>
+            
+            <div class="impact-analysis">
+                <h4>⚠️ Critical Dependencies</h4>
+                <ul>
+                    <li><strong>Database Mappings:</strong> Field name changes require database column mapping updates</li>
+                    <li><strong>Frontend Forms:</strong> Form field names must align with new API structure</li>
+                    <li><strong>Webhook Handlers:</strong> Response parsing must handle PascalCase fields</li>
+                    <li><strong>Test Suites:</strong> All integration tests need updating</li>
+                </ul>
+            </div>
+
+            <button class="interactive-toggle" onclick="showTransformationAnimation()">
+                View Transformation Animation
+            </button>
+            
+            <div id="transformation-animation" style="display: none;">
+                <canvas id="flowCanvas" width="800" height="400"></canvas>
+            </div>
+        </section>
+
+        <section id="verification-checklist">
+            <h2>Post-Implementation Verification</h2>
+            
+            <div class="repository-card">
+                <h4>✓ Verification Checklist</h4>
+                <ul>
+                    <li>[ ] All files use PascalCase for InformData fields</li>
+                    <li>[ ] JWT authentication implemented and tested</li>
+                    <li>[ ] Product-specific structures enforced</li>
+                    <li>[ ] Integration tests pass with real API</li>
+                    <li>[ ] Webhook handlers parse responses correctly</li>
+                    <li>[ ] No hardcoded field mappings remain</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showTransformationAnimation() {
+            const canvas = document.getElementById('flowCanvas');
+            const container = document.getElementById('transformation-animation');
+            container.style.display = 'block';
+            
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw repositories
+            const repos = [
+                { name: 'vuplicity-api', x: 100, y: 100, status: 'incorrect' },
+                { name: 'vuplicity-hr-portal', x: 100, y: 200, status: 'correct' },
+                { name: 'vuplicity-employee-portal', x: 100, y: 300, status: 'unknown' }
+            ];
+            
+            let step = 0;
+            const animate = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw repos
+                repos.forEach(repo => {
+                    ctx.fillStyle = repo.status === 'correct' ? '#28a745' : 
+                                   repo.status === 'incorrect' ? '#dc3545' : '#6c757d';
+                    ctx.fillRect(repo.x, repo.y, 180, 60);
+                    
+                    ctx.fillStyle = 'white';
+                    ctx.font = '14px Arial';
+                    ctx.fillText(repo.name, repo.x + 10, repo.y + 35);
+                });
+                
+                // Draw PRD application
+                if (step > 30) {
+                    ctx.strokeStyle = '#007bff';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(300, 150);
+                    ctx.lineTo(450, 150);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#007bff';
+                    ctx.fillText('PRD Applied', 340, 140);
+                }
+                
+                // Transform repos
+                if (step > 60) {
+                    repos[0].status = 'correct';
+                    repos[2].status = 'correct';
+                }
+                
+                // Draw success state
+                if (step > 90) {
+                    ctx.fillStyle = '#28a745';
+                    ctx.font = '20px Arial';
+                    ctx.fillText('✓ All Repositories Aligned', 450, 200);
+                }
+                
+                step++;
+                if (step < 120) {
+                    requestAnimationFrame(animate);
+                }
+            };
+            
+            animate();
+        }
+    </script>
+</body>
+</html>
